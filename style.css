@@ -1,0 +1,44 @@
+body, ul, li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+}
+.navbar{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    background-color: #000000;
+    padding: 10px 20px;
+    color: white;
+    width: auto;
+   
+
+}
+.navbar .logo{
+    font-size: 24px;
+    font-weight: bold;
+}
+.navbar .nav-link{
+    display: flex;
+    gap: 20px;
+}
+.navbar .nav-link li{
+    display: inline;
+}
+.navbar .nav-link a{
+    color: white;
+    text-decoration: none;
+    padding: 10px 10px;
+    transition: background-colr 0.3s ease;
+}
+.navbar .nav-link a:hover{
+    background-color: #554018;
+    border-radius: 4px;
+}
+.nav2{
+    justify-content: right;
+}
