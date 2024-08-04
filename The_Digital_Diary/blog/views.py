@@ -1,11 +1,18 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
 # Create your views here.
+
+@login_required
+def profile(request):
+    return render(request, 'registration/profile.html')
+
 def post_list(request):
     posts = Post.objects.all()
-    return render(request, 'blog/post_list.html', {'posts': posts})
+    return render(request, 'blog/index.html', {'posts': posts})
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -13,11 +20,14 @@ def post_detail(request, pk):
     new_comment = None
 
     if request.method == 'POST':
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
-            new_comment = comment_form.save(commit=False)
-            new_comment.post = post
-            new_comment.save()
+        if request.user.is_authenticated:
+            comment_form = CommentForm(data=request.POST)
+            if comment_form.is_valid():
+                new_comment = comment_form.save(commit=False)
+                new_comment.post = post
+                new_comment.save()
+        else:
+            return redirect('login')
     else:
         comment_form = CommentForm()
 
@@ -27,3 +37,19 @@ def post_detail(request, pk):
         'new_comment': new_comment,
         'comment_form': comment_form
     })
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            return redirect('post_list')
+    else:
+        form = SignUpForm()
+    return render(request, 'registration/signup.html', {'form': form})

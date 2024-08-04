@@ -110,6 +110,8 @@ TIME_ZONE = "Asia/Karachi"
 
 USE_I18N = True
 
+LOGIN_REDIRECT_URL = '/'
+
 USE_TZ = True
 
 

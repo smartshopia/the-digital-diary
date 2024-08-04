@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.created_at }}</p>
+    <p>{{ post.content }}</p>
+
+    <h2>Comments</h2>
+    {% for comment in comments %}
+        <p><strong>{{ comment.author }}</strong> {{ comment.created_at }}</p>
+        <p>{{ comment.text }}</p>
+    {% endfor %}
+
+    <h2>Add a comment</h2>
+    {% if user.is_authenticated %}
+        {% if new_comment %}
+            <p>Your comment has been added.</p>
+        {% else %}
+            <form method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit">Add comment</button>
+            </form>
+        {% endif %}
+    {% else %}
+        <p>You need to <a href="{% url 'login' %}">login</a> to add a comment.</p>
+    {% endif %}
+</body>
+</html>
