@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Digital Diary</title>
    <!-- Font Awesome for social media icons -->
-   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-  <link rel="stylesheet" href="about.html">
+<!--    <script src="https://kit.fontawesome.com/a076d05399.js"></script> -->
+<!--   <link rel="stylesheet" href="about.html"> -->
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom CSS 
@@ -23,10 +23,10 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+<!--    <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+           <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="about.html">About</a>
@@ -39,7 +39,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="contact.html">Contact</a>
-        </li>
+        </li> -->
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -56,7 +56,8 @@
   </div>-->
 
   <!-- Main Banner -->
-  <div id="mainBanner" class="jumbotron jumbotron-fluid text-center" style="background-image: url('desktop.jpg'); background-size: cover; background-position: center; color: white;">
+   <!--  style="background-image: url('desktop.jpg'); background-size: cover; background-position: center; --> 
+  <div id="mainBanner" class="jumbotron jumbotron-fluid text-center"color: white;">
     <div class="container" style="background-color: rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 10px;">
       <h1 class="display-4">Welcome to The Digital Diary</h1>
       <p class="lead">Your go-to blog for the latest in digital trends and insights.</p>
@@ -67,11 +68,17 @@
   <div class="container my-5">
     <h1>Blog Posts</h1>
     {% for post in posts %}
-        <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
-        <p>{{ post.created_at }}</p>
-        <p>{{ post.content|slice:":200" }}...</p>
+        <div>
+            <h2>{{ post.title }}</h2>
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 300px;">
+            {% endif %}
+            <p>{{ post.short_description }}</p>
+            <a href="{% url 'post_detail' post.pk %}">Read More</a>
+        </div>
     {% endfor %}
-    <h2 class="text-center mb-4">Latest Posts</h2>
+    </div>
+   <!--  <h2 class="text-center mb-4">Latest Posts</h2>
     <div class="row">
       <div class="col-md-4">
         <div class="card mb-4">
@@ -105,7 +112,7 @@
       </div>
     </div>
   </div>
-   <!-- Popular Posts Section -->
+<!-- Popular Posts Section
    <div class="container my-5">
     <h2 class="text-center mb-4">Popular Posts</h2>
     <div class="row">
@@ -140,7 +147,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Categories Section -->
   <div class="container my-5">
@@ -167,7 +174,7 @@
           <a href="#" class="btn btn-outline-success btn-block mb-4">Data Analytics</a>
         </div>
       </div>
-  </div>
+  </div> -->
     <!-- Subscription Box -->
     <div class="container my-5">
         <h2 class="text-center mb-4">Subscribe to Our Newsletter</h2>
@@ -189,7 +196,7 @@
         <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
           <h5 class="text-uppercase">Quick Links</h5>
           <ul class="list-unstyled mb-0">
-            <li>
+<!--             <li>
               <a href="#" class="text-dark">Home</a>
             </li>
             <li>
@@ -200,7 +207,7 @@
             </li>
             <li>
               <a href="#" class="text-dark">Contact</a>
-            </li>
+            </li> -->
           </ul>
         </div>
         <div class="col-lg-3 col-md-6 mb-4 mb-md-0">

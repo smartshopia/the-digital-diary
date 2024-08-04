@@ -25,6 +25,7 @@ def post_detail(request, pk):
             if comment_form.is_valid():
                 new_comment = comment_form.save(commit=False)
                 new_comment.post = post
+                new_comment.author = request.user
                 new_comment.save()
         else:
             return redirect('login')
@@ -53,3 +54,15 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
+@login_required
+def publish_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('post_list')
+    else:
+        form = PostForm()
+    return render(request, 'blog/publish_post.html', {'form': form})

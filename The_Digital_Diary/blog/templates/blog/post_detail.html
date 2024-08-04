@@ -6,13 +6,18 @@
 <body>
     <h1>{{ post.title }}</h1>
     <p>{{ post.created_at }}</p>
-    <p>{{ post.content }}</p>
+
+    {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 600px;">
+    {% endif %}
+    <p>{{ post.content|safe }}</p>
 
     <h2>Comments</h2>
     {% for comment in comments %}
-        <p><strong>{{ comment.author }}</strong> {{ comment.created_at }}</p>
+        <p><strong>{{ comment.author.get_full_name }}</strong> {{ comment.created_at }}</p>
         <p>{{ comment.text }}</p>
     {% endfor %}
+
 
     <h2>Add a comment</h2>
     {% if user.is_authenticated %}

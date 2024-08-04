@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Publish Post</title>
+    {% load static %}
+    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+</head>
+<body>
+    <h1>Publish Post</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Publish</button>
+    </form>
+</body>
+</html>

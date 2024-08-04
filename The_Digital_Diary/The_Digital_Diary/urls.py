@@ -18,6 +18,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from blog import views as blog_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -25,4 +27,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('signup/', blog_views.signup, name='signup'),
     path('accounts/profile/', blog_views.profile, name='profile'),
-]
+    #path("upload/", custom_upload_function, name="custom_upload_file"),
+    path('ckeditor/', include('django_ckeditor_5.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
